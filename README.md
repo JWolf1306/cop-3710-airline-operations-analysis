@@ -25,3 +25,8 @@ The following relationships are used in the design of the database to best repre
 - Many-to-Many: Airports are connected through routes, allowing multiple flights between origin and destination pairs.
 
 A notable design component is the FLIGHT_DELAY entity, which is a weak entity. Given that delay events require a flight to exist, a composite primary key consisting of FLIGHT_ID and DELAY_SEQUENCE is used to identify these delay events. As a result, one flight is able to have multiple categorized delay events. Additionally, the ROUTE entity is used as an associative entity between airports to resolve the many-to-many relationship between origin and destination airports, while providing analysis of routes between airports.
+
+## Final Database Design
+Below is the final database design for this project. This design was chosen given its efficiency in covering all necessary info relevant to monitoring airline operations, in addition to its satisfaction of BNCF conditions.
+
+<img width="1225" height="416" alt="Screenshot 2026-03-02 232448" src="https://github.com/user-attachments/assets/12f17a56-0719-46b5-9e99-fffb7842a986" />
