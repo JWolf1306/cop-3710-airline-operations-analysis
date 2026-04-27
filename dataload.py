@@ -58,6 +58,22 @@ def normalize_keys_and_timestamps(dfs):
 # Cleans and normalizes the CSV data
 dfs = normalize_keys_and_timestamps(dfs)
 
+# Drops flights with missing aircraft IDs
+flight_df = dfs["FLIGHT"]
+
+flight_df["AIRCRAFT_ID"] = flight_df["AIRCRAFT_ID"].replace(r'^\s*$', None, regex=True)
+flight_df = flight_df[flight_df["AIRCRAFT_ID"].notnull()]
+
+dfs["FLIGHT"] = flight_df
+
+# Drops flight delays linked to flights with missing aircraft IDs
+delay_df = dfs["FLIGHT_DELAY"]
+
+valid_flights = set(dfs["FLIGHT"]["FLIGHT_ID"].astype(str))
+delay_df = delay_df[delay_df["FLIGHT_ID"].isin(valid_flights)]
+
+dfs["FLIGHT_DELAY"] = delay_df
+
 # Loads the CSV data into a table
 def load_table_df(df, table_name, columns, numeric_columns=None, datetime_columns=None):
     print(f"\nLoading {table_name}...")
