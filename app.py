@@ -1,8 +1,11 @@
+import oracledb
 
-import sqlite3
+conn = oracledb.connect(
+    user="JWOLF8270_SCHEMA_THLR8",
+    password="FQG5ZL1!NPQ7uMC6Q7POLERRX1H9G0",
+    dsn="db.freesql.com:1521/23ai_34ui2"
+)
 
-
-conn = sqlite3.connect('airline.db')
 cursor = conn.cursor()
 
 print("Connected to database.\n")
@@ -15,10 +18,10 @@ def feature1():
     SELECT f.FLIGHT_ID, f.FLIGHT_NUMBER, f.STATUS
     FROM FLIGHT f
     JOIN AIRLINE a ON f.AIRLINE_CODE = a.AIRLINE_CODE
-    WHERE a.AIRLINE_CODE = ?;
+    WHERE a.AIRLINE_CODE = :code
     """
 
-    cursor.execute(query, (code,))
+    cursor.execute(query, {"code": code})
     results = cursor.fetchall()
 
     for row in results:
@@ -32,10 +35,11 @@ def feature2():
     SELECT f.FLIGHT_ID, f.FLIGHT_NUMBER, r.ORIGIN_AIRPORT, r.DESTINATION_AIRPORT
     FROM FLIGHT f
     JOIN ROUTE r ON f.ROUTE_ID = r.ROUTE_ID
-    WHERE r.ORIGIN_AIRPORT = ? AND r.DESTINATION_AIRPORT = ?;
+    WHERE r.ORIGIN_AIRPORT = :origin
+      AND r.DESTINATION_AIRPORT = :dest
     """
 
-    cursor.execute(query, (origin, dest))
+    cursor.execute(query, {"origin": origin, "dest": dest})
     results = cursor.fetchall()
 
     for row in results:
@@ -48,10 +52,10 @@ def feature3():
     query = """
     SELECT FLIGHT_ID, DELAY_TYPE, DELAY_MINUTES
     FROM FLIGHT_DELAY
-    WHERE FLIGHT_ID = ?;
+    WHERE FLIGHT_ID = :flight_id
     """
 
-    cursor.execute(query, (flight_id,))
+    cursor.execute(query, {"flight_id": flight_id})
     results = cursor.fetchall()
 
     for row in results:
@@ -63,7 +67,7 @@ def feature4():
     SELECT a.AIRLINE_NAME, COUNT(f.FLIGHT_ID)
     FROM AIRLINE a
     LEFT JOIN FLIGHT f ON a.AIRLINE_CODE = f.AIRLINE_CODE
-    GROUP BY a.AIRLINE_NAME;
+    GROUP BY a.AIRLINE_NAME
     """
 
     cursor.execute(query)
@@ -77,7 +81,7 @@ def feature5():
     query = """
     SELECT f.FLIGHT_ID, ac.MODEL, ac.CAPACITY
     FROM FLIGHT f
-    JOIN AIRCRAFT ac ON f.AIRCRAFT_ID = ac.AIRCRAFT_ID;
+    JOIN AIRCRAFT ac ON f.AIRCRAFT_ID = ac.AIRCRAFT_ID
     """
 
     cursor.execute(query)
