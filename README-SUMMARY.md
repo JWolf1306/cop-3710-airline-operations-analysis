@@ -38,3 +38,5 @@ There are five prominent features provided within the application:
 - View flight delays: Users are able to search for flight delays by flight ID.
 - Flights per airline: This shows number of flights for each airline.
 - Aircraft per flight: This lists the aircraft model used on each flight.
+<img width="288" height="127" alt="Screenshot 2026-04-27 040430" src="https://github.com/user-attachments/assets/f339a70b-a5f0-458f-8a05-3e2cc3f81898" />
+
