@@ -30,3 +30,11 @@ A notable design component is the FLIGHT_DELAY entity, which is a weak entity. G
 Below is the final database design for this project. This design was chosen given its efficiency in covering all necessary info relevant to monitoring airline operations, in addition to its satisfaction of BNCF conditions.
 
 <img width="1225" height="416" alt="Screenshot 2026-03-02 232448" src="https://github.com/user-attachments/assets/12f17a56-0719-46b5-9e99-fffb7842a986" />
+
+## Applications Features
+There are five prominent features provided within the application:
+- View flights by airline: Users are able to search and view flights by entering an airline code.
+- View flights per route: Users are able to search and view flights by entering a specific origin and destination airport.
+- View flight delays: Users are able to search for flight delays by flight ID.
+- Flights per airline: This shows number of flights for each airline.
+- Aircraft per flight: This lists the aircraft model used on each flight.
